@@ -11,25 +11,36 @@ document.querySelector('form').addEventListener('submit', (e) => {
 
   const newRow = taskTable.insertRow();
 
-  const rowData = [
-    clickCount,
-    taskContent.value,
-    '作業中',
-    '削除'
-  ];
+  const tasks = [];
 
-  rowData.forEach((data, index) => {
-    const newCell = newRow.insertCell(index);
-    if (index === 0 || index === 1) {
-      newCell.textContent = data;
-    } else {
-      const newButton = document.createElement('button');
-      newButton.textContent = data;
-      newCell.appendChild(newButton);
-    };
+  const newTask = {
+    id: clickCount,
+    content: taskContent.value,
+    status:'作業中',
+  };
+
+  tasks.push(newTask);
+  tasks.forEach((task) => {
+
+    const idCell = newRow.insertCell(0);
+    idCell.textContent = task.id;
+
+    const contentCell = newRow.insertCell(1);
+    contentCell.textContent = task.content;
+
+    const statusCell = newRow.insertCell(2);
+    const statusButton = document.createElement('button');
+    statusButton.textContent = task.status;
+    statusCell.appendChild(statusButton);
+
+    const deleteCell = newRow.insertCell(3);
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = '削除';
+    deleteCell.appendChild(deleteButton);
   });
 
   taskContent.value = '';
   clickCount++;
 
 });
+
